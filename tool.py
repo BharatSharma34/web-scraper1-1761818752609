@@ -218,17 +218,17 @@ def execute_plan(user_question: str, plan: Dict[str, object]) -> None:
     3. Aggregate all results and ask GPT-4.1 for a final structured answer.
     """
 
-    print("----- EXECUTION START -----\n")
+    # print("----- EXECUTION START -----\n")
 
     all_hits: List[Dict[str,str]] = []
 
     # We'll stream reasoning as plain text. This is not hidden chain-of-thought;
     # it's explicit operational narration of what we're doing.
     for step_i, step in enumerate(plan["steps"], 1):
-        print(f"[Step {step_i}] {step}")
+        # print(f"[Step {step_i}] {step}")
         for kw in plan["keywords"]:
-            print(f"  - Searching for: {kw}")
-            print(f"    (focusing on sources: {', '.join(plan['sources'])})")
+            # print(f"  - Searching for: {kw}")
+            # print(f"    (focusing on sources: {', '.join(plan['sources'])})")
 
             # Run search
             hits = web_search(
@@ -236,7 +236,7 @@ def execute_plan(user_question: str, plan: Dict[str, object]) -> None:
                 max_results=6,
                 site_filters=plan["sources"]
             )
-            print(f"    Retrieved {len(hits)} candidate results.")
+            # print(f"    Retrieved {len(hits)} candidate results.")
             # Show a short preview of top 3
             for idx, h in enumerate(hits[:3], 1):
                 preview = h['body'][:200].replace("\n", " ")
@@ -296,10 +296,8 @@ Evidence:
         user_msg=synthesis_prompt,
         temperature=0.3
     )
-
-    print("----- FINAL ANSWER -----\n")
-    print(final_answer)
-    print("\n----- END -----\n")
+    
+    return final_answer
 
 
 # -------------------------
