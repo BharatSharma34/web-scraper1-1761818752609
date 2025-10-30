@@ -81,6 +81,7 @@ def gpt_chat(model: str, system_msg: str, user_msg: str, temperature: float = 0.
             {"role": "system", "content": system_msg},
             {"role": "user", "content": user_msg}
         ],
+        stream=True
     )
     return resp.choices[0].message.content.strip()
 
